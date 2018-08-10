@@ -1,11 +1,14 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'com.novoda.bintray-release'//添加
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
-    useLibrary 'org.apache.http.legacy'
+//    useLibrary 'org.apache.http.legacy'
 
-
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         minSdkVersion rootProject.ext.android["minSdkVersion"]
@@ -107,4 +110,51 @@ dependencies {
     //test
     api rootProject.ext.dependencies["timber"]
     testImplementation rootProject.ext.dependencies["junit"]
+}
+//生成源文件
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+//生成Javadoc文档
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+//文档打包成jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+//拷贝javadoc文件
+task copyDoc(type: Copy) {
+    from "${buildDir}/docs/"
+    into "docs"
+}
+
+//上传到JCenter所需要的源码文件
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+//解决 JavaDoc 中文注释生成失败的问题
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
+
+//发布到 Bintray
+publish {
+    userOrg = 'Zhenguo28'           //bintray.com 注册的用户名
+    groupId = 'com.wwzs.gear'   //以后访问 jcenter上此项目的路径，一般和库项目的包名一致
+    artifactId = 'GearDemo'       //bintray.com 创建的 Package 名
+    publishVersion = '1.0.0'         //版本号
+    desc = '首次发包' //版本说明，随意
+    website = 'https://github.com/ZhengTaiChen/Gear'    //关于这个开源项目的网站，随意
 }

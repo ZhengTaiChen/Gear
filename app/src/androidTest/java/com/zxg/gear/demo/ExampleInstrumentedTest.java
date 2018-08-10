@@ -1,4 +1,4 @@
-package com.zxg.gear.demo;
+package com.wwzs.gear.demo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.zxg.gear.demo", appContext.getPackageName());
+        assertEquals("com.wwzs.gear.demo", appContext.getPackageName());
     }
 }

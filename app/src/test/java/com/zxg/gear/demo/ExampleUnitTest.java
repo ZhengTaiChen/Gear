@@ -1,4 +1,4 @@
-package com.zxg.gear.demo;
+package com.wwzs.gear.demo;
 
 import org.junit.Test;
 
