@@ -6,7 +6,7 @@ ext {
                minSdkVersion           : 14,
                targetSdkVersion        : 27,
                versionCode             : 156,
-               versionName             : "2.4.1"
+               versionName             : "1.0.0"
     ]
 
      version = [
@@ -52,6 +52,7 @@ ext {
                 "nineoldandroids"          : "com.nineoldandroids:library:2.4.0",
                 "paginate"                 : "com.github.markomilos:paginate:0.5.1",
                 "vlayout"                  : "com.alibaba.android:vlayout:1.1.0@aar",
+                "AdapterHelper"            : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40",    //recycler适配器
 
                 //rx1
                 "rxandroid"                : "io.reactivex:rxandroid:1.2.1",

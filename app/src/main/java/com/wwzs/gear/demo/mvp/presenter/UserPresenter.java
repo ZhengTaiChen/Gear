@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.SupportActivity;
 import android.support.v7.widget.RecyclerView;
 
 
@@ -15,6 +16,7 @@ import me.jessyan.rxerrorhandler.handler.RetryWithDelay;
 
 import javax.inject.Inject;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.wwzs.gear.demo.mvp.contract.UserContract;
 import com.wwzs.gear.demo.mvp.model.entity.User;
 import com.wwzs.gear.di.scope.ActivityScope;
@@ -40,8 +42,7 @@ public class UserPresenter extends BasePresenter<UserContract.Model, UserContrac
 
     @Inject
     List<User> mUsers;
-    @Inject
-    RecyclerView.Adapter mAdapter;
+
 
     private int lastUserId = 1;
     private boolean isFirst = true;
@@ -59,6 +60,7 @@ public class UserPresenter extends BasePresenter<UserContract.Model, UserContrac
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate() {
         requestUsers(true);//打开 App 时自动加载列表
+        mRootView.getAdapter().setNewData(mUsers);
     }
 
     public void requestUsers(final boolean pullToRefresh) {
@@ -117,9 +119,9 @@ public class UserPresenter extends BasePresenter<UserContract.Model, UserContrac
                         preEndIndex = mUsers.size();//更新之前列表总长度,用于确定加载更多的起始位置
                         mUsers.addAll(users);
                         if (pullToRefresh)
-                            mAdapter.notifyDataSetChanged();
+                            mRootView.getAdapter().notifyDataSetChanged();
                         else
-                            mAdapter.notifyItemRangeInserted(preEndIndex, users.size());
+                            mRootView.getAdapter().notifyItemRangeInserted(preEndIndex, users.size());
                     }
                 });
     }

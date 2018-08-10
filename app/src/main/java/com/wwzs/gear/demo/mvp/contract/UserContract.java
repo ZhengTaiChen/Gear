@@ -3,6 +3,7 @@ package com.wwzs.gear.demo.mvp.contract;
 
 import android.app.Activity;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wwzs.gear.demo.mvp.model.entity.User;
 import com.wwzs.gear.mvp.IModel;
@@ -20,6 +21,8 @@ public interface UserContract {
         Activity getActivity();
         //申请权限
         RxPermissions getRxPermissions();
+
+        BaseQuickAdapter getAdapter();
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存

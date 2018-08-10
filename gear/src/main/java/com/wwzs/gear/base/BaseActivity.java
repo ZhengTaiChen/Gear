@@ -25,13 +25,13 @@ import android.util.AttributeSet;
 import android.view.InflateException;
 import android.view.View;
 
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.wwzs.gear.base.delegate.IActivity;
 import com.wwzs.gear.integration.cache.Cache;
 import com.wwzs.gear.integration.cache.CacheType;
 import com.wwzs.gear.integration.lifecycle.ActivityLifecycleable;
 import com.wwzs.gear.mvp.IPresenter;
 import com.wwzs.gear.utils.ArmsUtils;
-import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import javax.inject.Inject;
 
@@ -39,8 +39,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
-
-import static com.wwzs.gear.utils.ThirdViewUtil.convertAutoView;
 
 /**
  * ================================================
@@ -74,8 +72,8 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
 
     @Override
     public View onCreateView(String name, Context context, AttributeSet attrs) {
-        View view = convertAutoView(name, context, attrs);
-        return view == null ? super.onCreateView(name, context, attrs) : view;
+
+        return  super.onCreateView(name, context, attrs) ;
     }
 
     @Override
